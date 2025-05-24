@@ -1,0 +1,37 @@
+/* Import Material Icons */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* Import Material theme first */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Then Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Material component customizations */
+.mat-mdc-button, .mat-mdc-raised-button {
+  @apply !rounded-lg;
+}
+
+.mat-mdc-card {
+  @apply !rounded-xl;
+}
+
+/* Ensure mat-icon is centered and sized properly */
+.mat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  font-size: 2.5rem;
+  height: 2.5rem;
+  width: 2.5rem;
+}
