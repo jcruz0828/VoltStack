@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable, BehaviorSubject, interval } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap, tap, map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 interface Notification {
   id: number;
@@ -31,7 +32,7 @@ export class NotificationService {
   // Start polling for updates
   startPolling(userId: number) {
     return interval(this.pollingInterval).pipe(
-      switchMap(() => this.fetchUpdates(userId))
+      switchMap(() => this.getNotifications(userId))
     ).subscribe();
   }
 
@@ -46,13 +47,46 @@ export class NotificationService {
     );
   }
 
-  // Get notification history
-  getNotificationHistory(userId: number): Observable<Notification[]> {
-    return this.http.get<Notification[]>(`${this.apiUrl}/notifications/${userId}`);
+  // Get all notifications for a user
+  getNotifications(userId: number): Observable<Notification[]> {
+    return this.http.get<{ data: Notification[] }>(`${this.apiUrl}/notifications/user/${userId}`)
+      .pipe(
+        map(response => {
+          if (!response || !response.data) {
+            return [];
+          }
+          return response.data;
+        }),
+        catchError(error => {
+          return of([]);
+        })
+      );
   }
 
-  // Mark notification as read
-  markAsRead(notificationId: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/notifications/${notificationId}/read`, {});
+  // Mark one notification as read
+  markAsRead(notificationId: number, userId: number): Observable<any> {
+    return this.http.patch<{ data: any }>(`${this.apiUrl}/notifications/${notificationId}/read?userId=${userId}`, {})
+      .pipe(
+        map(res => res.data),
+        catchError(() => of(null))
+      );
+  }
+
+  // Mark all notifications as read for a user
+  markAllAsRead(userId: number): Observable<any> {
+    return this.http.patch<{ data: any }>(`${this.apiUrl}/notifications/user/${userId}/read-all`, {})
+      .pipe(
+        map(res => res.data),
+        catchError(() => of(null))
+      );
+  }
+
+  // Delete a notification
+  deleteNotification(notificationId: number, userId: number): Observable<any> {
+    return this.http.delete<{ data: any }>(`${this.apiUrl}/notifications/${notificationId}?userId=${userId}`)
+      .pipe(
+        map(res => res.data),
+        catchError(() => of(null))
+      );
   }
 } 

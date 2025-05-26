@@ -7,6 +7,8 @@ import { NotificationPanelComponent } from '../../shared/components/notification
 import { ApplicationService } from './application.service';
 import { ThemeService } from '../../shared/services/theme.service';
 import { Subscription } from 'rxjs';
+import { ApplicationPollingService } from '../../shared/services/application-polling.service';
+import { NotificationPollingService } from '../../shared/services/notification-polling.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +27,7 @@ import { Subscription } from 'rxjs';
         <h1 class="text-3xl font-bold dark:text-yellow-300 text-gray-900 text-center w-full mb-6">My Applications</h1>
         <app-application-list [userId]="userId" [showAddButton]="true"></app-application-list>
       </div>
-      <app-notification-panel *ngIf="notificationPanelVisible" (close)="notificationPanelVisible = false"></app-notification-panel>
+      <app-notification-panel *ngIf="notificationPanelVisible" [notifications]="notifications" (close)="notificationPanelVisible = false"></app-notification-panel>
       <app-footer></app-footer>
     </div>
   `,
@@ -35,11 +37,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   userId!: number;
   notificationPanelVisible = false;
   private themeSubscription: Subscription;
+  applications: any[] = [];
+  notifications: any[] = [];
+  private pollingSubscriptions: Subscription[] = [];
 
   constructor(
     private appService: ApplicationService, 
     @Inject(PLATFORM_ID) private platformId: Object, 
-    public theme: ThemeService
+    public theme: ThemeService,
+    private appPolling: ApplicationPollingService,
+    private notifPolling: NotificationPollingService
   ) {
     this.themeSubscription = this.theme.isDarkMode$.subscribe(isDark => {
       if (isPlatformBrowser(this.platformId)) {
@@ -50,12 +57,41 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userId = this.getUserId();
+    
+    // Start polling for both applications and notifications
+    this.appPolling.startPolling(this.userId);
+    this.notifPolling.startPolling(this.userId);
+    
+    // Subscribe to application updates
+    this.pollingSubscriptions.push(
+      this.appPolling.getApplications().subscribe({
+        next: (apps) => {
+          if (apps) {
+            this.applications = apps;
+          }
+        },
+        error: (error) => {}
+      })
+    );
+    
+    // Subscribe to notification updates
+    this.pollingSubscriptions.push(
+      this.notifPolling.getNotifications().subscribe({
+        next: (notifs) => {
+          if (notifs) {
+            this.notifications = [...notifs];
+          }
+        },
+        error: (error) => {}
+      })
+    );
   }
 
   ngOnDestroy() {
     if (this.themeSubscription) {
       this.themeSubscription.unsubscribe();
     }
+    this.pollingSubscriptions.forEach(sub => sub.unsubscribe());
   }
 
   getUserId(): number {

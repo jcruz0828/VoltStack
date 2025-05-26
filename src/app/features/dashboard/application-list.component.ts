@@ -213,8 +213,10 @@ export class ApplicationListComponent implements OnInit, OnDestroy {
   applyFilters() {
     this.filteredApplications = this.applications.filter(app => {
       return (
-        (!this.filters.status || app.jobStatus === this.filters.status) &&
-        (!this.filters.company || app.name?.toLowerCase().includes(this.filters.company.toLowerCase())) &&
+        (!this.filters.status || app.jobStatus?.toLowerCase() === this.filters.status.toLowerCase()) &&
+        (!this.filters.company || 
+          (app.name?.toLowerCase().includes(this.filters.company.toLowerCase()) || 
+           app.companyName?.toLowerCase().includes(this.filters.company.toLowerCase()))) &&
         (!this.filters.title || app.jobTitle?.toLowerCase().includes(this.filters.title.toLowerCase()))
       );
     });
@@ -301,7 +303,6 @@ export class ApplicationListComponent implements OnInit, OnDestroy {
   saveCreateApplication(newApp: any) {
     newApp.userId = this.userId;
     newApp.jobStatus = this.normalizeStatus(newApp.jobStatus);
-    console.log(newApp);
     this.appService.addApplication(newApp).subscribe(() => {
       this.fetchApplications();
       this.closeModal();
