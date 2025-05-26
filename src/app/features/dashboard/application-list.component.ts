@@ -301,6 +301,7 @@ export class ApplicationListComponent implements OnInit, OnDestroy {
   saveCreateApplication(newApp: any) {
     newApp.userId = this.userId;
     newApp.jobStatus = this.normalizeStatus(newApp.jobStatus);
+    console.log(newApp);
     this.appService.addApplication(newApp).subscribe(() => {
       this.fetchApplications();
       this.closeModal();

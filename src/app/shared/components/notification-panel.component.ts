@@ -55,10 +55,9 @@ export interface Notification {
         </button>
         <h2 class="text-3xl font-extrabold mb-2 text-blue-900 dark:text-yellow-300 tracking-tight">{{ selectedNotification?.title }}</h2>
         <div class="mb-2 text-gray-700 dark:text-yellow-200 text-lg">{{ selectedNotification?.message }}</div>
-        <div *ngIf="selectedNotification?.metadata" class="mb-2 flex flex-wrap gap-2">
-          <span *ngIf="selectedNotification?.metadata?.company" class="inline-block px-4 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-sm text-blue-700 dark:text-blue-200 font-semibold shadow-sm">{{ selectedNotification?.metadata?.company }}</span>
-          <span *ngIf="selectedNotification?.metadata?.jobTitle" class="inline-block px-4 py-1 rounded-full bg-purple-100 dark:bg-purple-900/40 text-sm text-purple-700 dark:text-purple-200 font-semibold shadow-sm">{{ selectedNotification?.metadata?.jobTitle }}</span>
-          <span *ngIf="selectedNotification?.metadata?.status" class="inline-block px-4 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-200 shadow-sm">{{ getStatusLabel(selectedNotification?.metadata?.status || '') }}</span>
+        <div *ngIf="selectedNotification?.metadata" class="mb-2">
+          <span *ngIf="selectedNotification?.metadata?.company" class="inline-flex items-center justify-center gap-1 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-sm text-blue-700 dark:text-blue-200 font-semibold shadow-sm truncate" title="{{ selectedNotification?.metadata?.company }}">{{ selectedNotification?.metadata?.company }}</span>
+          <span *ngIf="selectedNotification?.metadata?.status" class="inline-flex items-center justify-center gap-1 mt-1 px-3 py-1 rounded-full text-xs font-semibold transition-colors duration-200 bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-200 shadow-sm">{{ getStatusLabel(selectedNotification?.metadata?.status || '') }}</span>
         </div>
         <div class="text-xs text-gray-500 dark:text-yellow-400 mt-2">{{ selectedNotification?.time }}</div>
       </div>
@@ -91,10 +90,9 @@ export interface Notification {
                 <h3 class="text-base font-semibold text-gray-900 dark:text-yellow-300 truncate">{{ notification.title }}</h3>
                 <p class="text-sm text-gray-600 dark:text-yellow-200 truncate">{{ notification.message }}</p>
                 <time class="text-xs text-gray-500 dark:text-yellow-200/70 mt-1 block">{{ notification.time }}</time>
-                <div *ngIf="notification.metadata && notification.metadata.company" class="mt-2 flex gap-2 flex-wrap">
-                  <span class="inline-block px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-xs text-blue-700 dark:text-blue-200 font-semibold shadow-sm">{{ notification.metadata.company }}</span>
-                  <span *ngIf="notification.metadata.jobTitle" class="inline-block px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-900/40 text-xs text-purple-700 dark:text-purple-200 font-semibold shadow-sm">{{ notification.metadata.jobTitle }}</span>
-                  <span *ngIf="notification.metadata.status" class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-200 shadow-sm">{{ getStatusLabel(notification.metadata.status || '') }}</span>
+                <div *ngIf="notification.metadata && notification.metadata.company" class="mt-2">
+                  <span class="inline-flex items-center justify-center gap-1 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-xs text-blue-700 dark:text-blue-200 font-semibold shadow-sm truncate" title="{{ notification.metadata.company }}">{{ notification.metadata.company }}</span>
+                  <span *ngIf="notification.metadata.status" class="inline-flex items-center justify-center gap-1 mt-1 px-3 py-1 rounded-full text-xs font-semibold transition-colors duration-200 bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-200 shadow-sm">{{ getStatusLabel(notification.metadata.status || '') }}</span>
                 </div>
               </div>
               <div *ngIf="!notification.read" class="flex-shrink-0 mt-1">
