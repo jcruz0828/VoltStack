@@ -4,6 +4,7 @@ import { NavbarComponent } from '../../shared/components/navbar.component';
 import { FooterComponent } from '../../shared/components/footer.component';
 import { ApplicationListComponent } from './application-list.component';
 import { ApplicationModalComponent } from './application-modal.component';
+import { NotificationPanelComponent } from '../../shared/components/notification-panel.component';
 import { ApplicationService } from './application.service';
 import { ThemeService } from '../../shared/services/theme.service';
 import { Subscription } from 'rxjs';
@@ -11,14 +12,21 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, ApplicationListComponent, ApplicationModalComponent],
+  imports: [
+    NavbarComponent, 
+    FooterComponent, 
+    ApplicationListComponent, 
+    ApplicationModalComponent,
+    NotificationPanelComponent
+  ],
   template: `
     <div class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       <app-navbar></app-navbar>
-      <div class="flex-1 pt-20 max-w-5xl mx-auto w-full px-4">
+      <div class="flex-1 pt-20 max-w-5xl mx-auto w-full px-4 relative">
         <h1 class="text-3xl font-bold dark:text-yellow-300 text-gray-900 text-center w-full mb-6">My Applications</h1>
         <app-application-list [userId]="userId" [showAddButton]="true"></app-application-list>
       </div>
+      <app-notification-panel></app-notification-panel>
       <app-footer></app-footer>
     </div>
   `,

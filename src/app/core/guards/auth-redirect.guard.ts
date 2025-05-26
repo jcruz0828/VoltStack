@@ -7,8 +7,8 @@ export const authRedirectGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   if (authService.isAuthenticated()) {
-    router.navigate(['/dashboard']);
-    return false;
+    // SSR-safe redirect
+    return router.createUrlTree(['/dashboard']);
   }
   return true;
 }; 

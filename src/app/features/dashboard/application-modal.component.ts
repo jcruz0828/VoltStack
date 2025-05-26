@@ -72,16 +72,40 @@ import { CompanyService, Company } from './company.service';
                     Offer
                   </div>
                 </mat-option>
+                <mat-option value="ACCEPTED" class="text-lg">
+                  <div class="flex items-center justify-center gap-2 w-full text-center">
+                    <span class="material-icons text-emerald-500">check_circle</span>
+                    Accepted
+                  </div>
+                </mat-option>
                 <mat-option value="REJECTED" class="text-lg">
                   <div class="flex items-center justify-center gap-2 w-full text-center">
                     <span class="material-icons text-red-500">cancel</span>
                     Rejected
                   </div>
                 </mat-option>
-                <mat-option value="ACCEPTED" class="text-lg">
+                <mat-option value="ON_HOLD" class="text-lg">
                   <div class="flex items-center justify-center gap-2 w-full text-center">
-                    <span class="material-icons text-emerald-500">check_circle</span>
-                    Accepted
+                    <span class="material-icons text-gray-500">pause_circle</span>
+                    On Hold
+                  </div>
+                </mat-option>
+                <mat-option value="PENDING" class="text-lg">
+                  <div class="flex items-center justify-center gap-2 w-full text-center">
+                    <span class="material-icons text-blue-300">hourglass_empty</span>
+                    Pending
+                  </div>
+                </mat-option>
+                <mat-option value="FOLLOW_UP" class="text-lg">
+                  <div class="flex items-center justify-center gap-2 w-full text-center">
+                    <span class="material-icons text-pink-500">follow_the_signs</span>
+                    Follow Up
+                  </div>
+                </mat-option>
+                <mat-option value="ARCHIVED" class="text-lg">
+                  <div class="flex items-center justify-center gap-2 w-full text-center">
+                    <span class="material-icons text-gray-400">archive</span>
+                    Archived
                   </div>
                 </mat-option>
               </mat-select>

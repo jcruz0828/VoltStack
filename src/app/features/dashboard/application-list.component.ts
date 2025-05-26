@@ -24,7 +24,9 @@ import { Subscription } from 'rxjs';
         <div class="text-xs text-gray-600 dark:text-yellow-200">Total</div>
       </div>
       <div *ngFor="let stat of statusStats" class="rounded-2xl bg-white/70 dark:bg-gray-900/70 shadow-xl p-4 flex flex-col items-center border border-blue-100 dark:border-gray-800 backdrop-blur-md">
-        <div class="text-2xl font-extrabold" [ngClass]="stat.color">{{ stat.count }}</div>
+        <div class="text-2xl font-extrabold" [ngClass]="stat.color">
+          <span [innerHTML]="stat.icon"></span>
+        </div>
         <div class="text-xs text-gray-600 dark:text-yellow-200">{{ stat.label }}</div>
       </div>
     </div>
@@ -52,8 +54,12 @@ import { Subscription } from 'rxjs';
                 <option value="APPLIED">Applied</option>
                 <option value="INTERVIEW">Interview</option>
                 <option value="OFFER">Offer</option>
-                <option value="REJECTED">Rejected</option>
                 <option value="ACCEPTED">Accepted</option>
+                <option value="REJECTED">Rejected</option>
+                <option value="ON_HOLD">On Hold</option>
+                <option value="PENDING">Pending</option>
+                <option value="FOLLOW_UP">Follow Up</option>
+                <option value="ARCHIVED">Archived</option>
               </select>
               <label
                 class="absolute left-4 px-1 bg-white/80 dark:bg-gray-900/80 font-semibold pointer-events-none transition-all duration-200"
@@ -223,23 +229,23 @@ export class ApplicationListComponent implements OnInit, OnDestroy {
   }
 
   computeStats() {
-    const statuses = ['APPLIED', 'INTERVIEW', 'OFFER', 'REJECTED', 'ACCEPTED'];
+    const statuses = [
+      { key: 'APPLIED', label: 'Applied', color: 'text-blue-500', icon: `<svg viewBox='0 0 20 20' fill='#3B82F6' class='w-5 h-5'><circle cx='10' cy='10' r='8'/></svg>` },
+      { key: 'INTERVIEW', label: 'Interview', color: 'text-purple-500', icon: `<svg viewBox='0 0 20 20' fill='#8B5CF6' class='w-5 h-5'><rect x='4' y='4' width='12' height='12' rx='3'/></svg>` },
+      { key: 'OFFER', label: 'Offer', color: 'text-green-500', icon: `<svg viewBox='0 0 20 20' fill='#22C55E' class='w-5 h-5'><polygon points='10,2 12,8 18,8 13,12 15,18 10,14 5,18 7,12 2,8 8,8'/></svg>` },
+      { key: 'ACCEPTED', label: 'Accepted', color: 'text-yellow-400', icon: `<svg viewBox='0 0 20 20' fill='#FACC15' class='w-5 h-5'><path d='M7 10l3 3 5-5' stroke='#FACC15' stroke-width='2' fill='none'/></svg>` },
+      { key: 'REJECTED', label: 'Rejected', color: 'text-red-500', icon: `<svg viewBox='0 0 20 20' fill='#EF4444' class='w-5 h-5'><line x1='6' y1='6' x2='14' y2='14' stroke='#EF4444' stroke-width='2'/><line x1='14' y1='6' x2='6' y2='14' stroke='#EF4444' stroke-width='2'/></svg>` },
+      { key: 'ON_HOLD', label: 'On Hold', color: 'text-gray-500', icon: `<svg viewBox='0 0 20 20' fill='#6B7280' class='w-5 h-5'><rect x='5' y='9' width='10' height='2' rx='1'/></svg>` },
+      { key: 'PENDING', label: 'Pending', color: 'text-blue-300', icon: `<svg viewBox='0 0 20 20' fill='#60A5FA' class='w-5 h-5'><circle cx='10' cy='10' r='8'/><rect x='9' y='5' width='2' height='6' rx='1' fill='#fff'/><rect x='9' y='13' width='2' height='2' rx='1' fill='#fff'/></svg>` },
+      { key: 'FOLLOW_UP', label: 'Follow Up', color: 'text-pink-500', icon: `<svg viewBox='0 0 20 20' fill='#EC4899' class='w-5 h-5'><path d='M10 2v16M2 10h16' stroke='#EC4899' stroke-width='2'/></svg>` },
+      { key: 'ARCHIVED', label: 'Archived', color: 'text-gray-400', icon: `<svg viewBox='0 0 20 20' fill='#9CA3AF' class='w-5 h-5'><rect x='4' y='8' width='12' height='8' rx='2'/><rect x='6' y='4' width='8' height='4' rx='1'/></svg>` }
+    ];
     this.statusStats = statuses.map(status => ({
-      label: status.charAt(0) + status.slice(1).toLowerCase(),
-      count: this.applications.filter(a => a.jobStatus === status).length,
-      color: this.getStatusColor(status)
+      label: status.label,
+      count: this.applications.filter(a => a.jobStatus === status.key).length,
+      color: status.color,
+      icon: status.icon
     }));
-  }
-
-  getStatusColor(status: string) {
-    switch (status) {
-      case 'APPLIED': return 'text-blue-500';
-      case 'INTERVIEW': return 'text-purple-500';
-      case 'OFFER': return 'text-green-500';
-      case 'REJECTED': return 'text-red-500';
-      case 'ACCEPTED': return 'text-yellow-400';
-      default: return 'text-gray-500';
-    }
   }
 
   openUpdateModal(app: any) {
@@ -257,10 +263,14 @@ export class ApplicationListComponent implements OnInit, OnDestroy {
       'applied': 'APPLIED',
       'interview': 'INTERVIEW',
       'offer': 'OFFER',
+      'accepted': 'ACCEPTED',
       'rejected': 'REJECTED',
-      'accepted': 'ACCEPTED'
+      'on_hold': 'ON_HOLD',
+      'pending': 'PENDING',
+      'follow_up': 'FOLLOW_UP',
+      'archived': 'ARCHIVED'
     };
-    return statusMap[status?.toLowerCase()] || status;
+    return statusMap[status?.toLowerCase().replace(/ /g, '_')] || status;
   }
 
   updateApplication(updated: any) {
