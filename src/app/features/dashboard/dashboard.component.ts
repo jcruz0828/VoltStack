@@ -1,9 +1,8 @@
 import { Component, Inject, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../shared/components/navbar.component';
 import { FooterComponent } from '../../shared/components/footer.component';
 import { ApplicationListComponent } from './application-list.component';
-import { ApplicationModalComponent } from './application-modal.component';
 import { NotificationPanelComponent } from '../../shared/components/notification-panel.component';
 import { ApplicationService } from './application.service';
 import { ThemeService } from '../../shared/services/theme.service';
@@ -13,20 +12,20 @@ import { Subscription } from 'rxjs';
   selector: 'app-dashboard',
   standalone: true,
   imports: [
+    CommonModule,
     NavbarComponent, 
     FooterComponent, 
     ApplicationListComponent, 
-    ApplicationModalComponent,
     NotificationPanelComponent
   ],
   template: `
     <div class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
-      <app-navbar></app-navbar>
+      <app-navbar (openNotifications)="notificationPanelVisible = true"></app-navbar>
       <div class="flex-1 pt-20 max-w-5xl mx-auto w-full px-4 relative">
         <h1 class="text-3xl font-bold dark:text-yellow-300 text-gray-900 text-center w-full mb-6">My Applications</h1>
         <app-application-list [userId]="userId" [showAddButton]="true"></app-application-list>
       </div>
-      <app-notification-panel></app-notification-panel>
+      <app-notification-panel *ngIf="notificationPanelVisible" (close)="notificationPanelVisible = false"></app-notification-panel>
       <app-footer></app-footer>
     </div>
   `,
@@ -34,6 +33,7 @@ import { Subscription } from 'rxjs';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   userId!: number;
+  notificationPanelVisible = false;
   private themeSubscription: Subscription;
 
   constructor(

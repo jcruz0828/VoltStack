@@ -19,14 +19,13 @@ import { Subscription } from 'rxjs';
     </div>
     <!-- Analytics Section -->
     <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-      <div class="rounded-2xl bg-white/70 dark:bg-gray-900/70 shadow-xl p-4 flex flex-col items-center border border-blue-100 dark:border-gray-800 backdrop-blur-md">
+      <div class="rounded-2xl bg-white/70 dark:bg-gray-900/70 shadow-xl p-4 flex flex-col items-center justify-center border border-blue-100 dark:border-gray-800 backdrop-blur-md">
         <div class="text-2xl font-extrabold text-blue-900 dark:text-yellow-300">{{ applications.length }}</div>
         <div class="text-xs text-gray-600 dark:text-yellow-200">Total</div>
       </div>
-      <div *ngFor="let stat of statusStats" class="rounded-2xl bg-white/70 dark:bg-gray-900/70 shadow-xl p-4 flex flex-col items-center border border-blue-100 dark:border-gray-800 backdrop-blur-md">
-        <div class="text-2xl font-extrabold" [ngClass]="stat.color">
-          <span [innerHTML]="stat.icon"></span>
-        </div>
+      <div *ngFor="let stat of statusStats" class="rounded-2xl bg-white/70 dark:bg-gray-900/70 shadow-xl p-4 flex flex-col items-center justify-center border border-blue-100 dark:border-gray-800 backdrop-blur-md">
+        <div class="text-2xl font-extrabold mb-1" [ngClass]="stat.color">{{ stat.count }}</div>
+        <div class="mb-1" [innerHTML]="stat.icon"></div>
         <div class="text-xs text-gray-600 dark:text-yellow-200">{{ stat.label }}</div>
       </div>
     </div>

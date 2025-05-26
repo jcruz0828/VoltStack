@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -21,27 +21,33 @@ import { MatIconModule } from '@angular/material/icon';
         </a>
         <div class="flex items-center space-x-2">
           <ng-container *ngIf="(auth.currentUser$ | async) as user; else guestLinks">
+            <button (click)="openNotifications.emit()" class="relative flex items-center justify-center p-2 rounded-full hover:bg-blue-100 dark:hover:bg-gray-800 transition align-middle" aria-label="Open notifications" style="height: 40px; width: 40px;">
+              <!-- Custom Bell SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600 dark:text-yellow-400 m-auto">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a2.25 2.25 0 01-4.714 0M6.75 8.25a5.25 5.25 0 1110.5 0c0 7.25 3 7.25 3 7.25H3.75s3-0.001 3-7.25z" />
+              </svg>
+            </button>
             <button mat-button [matMenuTriggerFor]="userMenu" class="flex items-center gap-2 font-semibold hover:bg-blue-50 dark:hover:bg-gray-800 rounded-lg px-3 py-2">
               <span class="text-blue-900 dark:text-yellow-200">{{ user.email }}</span>
             </button>
-            <mat-menu #userMenu="matMenu">
-              <button mat-menu-item (click)="theme.toggleDarkMode()">
+            <mat-menu #userMenu="matMenu" class="bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-blue-100 dark:border-gray-800">
+              <button mat-menu-item (click)="theme.toggleDarkMode()" class="bg-white dark:bg-gray-900 text-blue-900 dark:text-yellow-200 hover:bg-blue-50 dark:hover:bg-gray-800">
                 <span class="flex items-center gap-2">
                   <ng-container *ngIf="!(isDarkMode$ | async); else moonIcon">
                     <!-- Sun SVG -->
-                    <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2m9-9h-2M5 12H3m15.07 7.07l-1.41-1.41M6.34 6.34L4.93 4.93m12.02 0l-1.41 1.41M6.34 17.66l-1.41 1.41"/></svg>
+                    <svg class="w-5 h-5 text-yellow-400 dark:text-yellow-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2m9-9h-2M5 12H3m15.07 7.07l-1.41-1.41M6.34 6.34L4.93 4.93m12.02 0l-1.41 1.41M6.34 17.66l-1.41 1.41"/></svg>
                   </ng-container>
                   <ng-template #moonIcon>
                     <!-- Moon SVG -->
-                    <svg class="w-5 h-5 text-yellow-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
+                    <svg class="w-5 h-5 text-yellow-400 dark:text-yellow-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
                   </ng-template>
                   <span>Toggle Theme</span>
                 </span>
               </button>
-              <button mat-menu-item (click)="auth.logout()">
+              <button mat-menu-item (click)="auth.logout()" class="bg-white dark:bg-gray-900 text-blue-900 dark:text-yellow-200 hover:bg-blue-50 dark:hover:bg-gray-800">
                 <span class="flex items-center gap-2">
                   <!-- Logout SVG -->
-                  <svg class="w-5 h-5 text-white dark:text-yellow-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1"/></svg>
+                  <svg class="w-5 h-5 text-gray-500 dark:text-yellow-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1"/></svg>
                   <span>Logout</span>
                 </span>
               </button>
@@ -67,6 +73,7 @@ import { MatIconModule } from '@angular/material/icon';
   `
 })
 export class NavbarComponent implements OnInit {
+  @Output() openNotifications = new EventEmitter<void>();
   isDarkMode$;
   constructor(public theme: ThemeService, public auth: AuthService) {
     this.isDarkMode$ = this.theme.isDarkMode$;
