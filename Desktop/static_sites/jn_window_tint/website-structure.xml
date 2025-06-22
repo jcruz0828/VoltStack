@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<website-structure>
+  <!-- Tech Stack Configuration -->
+  <tech-stack>
+    <framework>Next.js 14 (React-based static site generator)</framework>
+    <styling>Tailwind CSS (utility-first CSS framework)</styling>
+    <deployment>Vercel/Netlify (static hosting)</deployment>
+    <icons>Lucide React (modern icon library)</icons>
+    <animations>Framer Motion (smooth animations)</animations>
+    <language>TypeScript (type safety)</language>
+  </tech-stack>
+
+  <!-- Website Architecture -->
+  <architecture>
+    <app-directory>
+      <layout>
+        <file>app/layout.tsx</file>
+        <description>Root layout with global styles and metadata</description>
+      </layout>
+      
+      <pages>
+        <page>
+          <route>/</route>
+          <file>app/page.tsx</file>
+          <name>Home</name>
+          <description>Landing page with hero section, services overview, and call-to-action</description>
+        </page>
+        
+        <page>
+          <route>/services</route>
+          <file>app/services/page.tsx</file>
+          <name>Services</name>
+          <description>Detailed service offerings and pricing</description>
+        </page>
+        
+        <page>
+          <route>/gallery</route>
+          <file>app/gallery/page.tsx</file>
+          <name>Gallery</name>
+          <description>Before/after photos and portfolio</description>
+        </page>
+        
+        <page>
+          <route>/about</route>
+          <file>app/about/page.tsx</file>
+          <name>About</name>
+          <description>Company story, team, and credentials</description>
+        </page>
+        
+        <page>
+          <route>/contact</route>
+          <file>app/contact/page.tsx</file>
+          <name>Contact</name>
+          <description>Contact form, location, and business hours</description>
+        </page>
+        
+        <page>
+          <route>/quote</route>
+          <file>app/quote/page.tsx</file>
+          <name>Get Quote</name>
+          <description>Quote request form and estimator</description>
+        </page>
+      </pages>
+    </app-directory>
+  </architecture>
+
+  <!-- Component Structure -->
+  <components>
+    <layout-components>
+      <component>
+        <name>Header</name>
+        <file>components/Header.tsx</file>
+        <features>
+          <feature>Logo and branding</feature>
+          <feature>Navigation menu</feature>
+          <feature>Mobile hamburger menu</feature>
+          <feature>Contact phone number</feature>
+          <feature>Call-to-action button</feature>
+        </features>
+      </component>
+      
+      <component>
+        <name>Footer</name>
+        <file>components/Footer.tsx</file>
+        <features>
+          <feature>Company information</feature>
+          <feature>Service areas</feature>
+          <feature>Contact details</feature>
+          <feature>Social media links</feature>
+          <feature>Business hours</feature>
+          <feature>Copyright notice</feature>
+        </features>
+      </component>
+      
+      <component>
+        <name>Navigation</name>
+        <file>components/Navigation.tsx</file>
+        <features>
+          <feature>Responsive menu</feature>
+          <feature>Active page highlighting</feature>
+          <feature>Smooth transitions</feature>
+        </features>
+      </component>
+    </layout-components>
+    
+    <content-components>
+      <component>
+        <name>Hero</name>
+        <file>components/Hero.tsx</file>
+        <features>
+          <feature>Eye-catching headline</feature>
+          <feature>Professional window tinting imagery</feature>
+          <feature>Call-to-action buttons</feature>
+          <feature>Trust indicators</feature>
+        </features>
+      </component>
+      
+      <component>
+        <name>ServiceCard</name>
+        <file>components/ServiceCard.tsx</file>
+        <features>
+          <feature>Service icon</feature>
+          <feature>Service title</feature>
+          <feature>Description</feature>
+          <feature>Starting price</feature>
+          <feature>Learn more link</feature>
+        </features>
+      </component>
+      
+      <component>
+        <name>GalleryGrid</name>
+        <file>components/GalleryGrid.tsx</file>
+        <features>
+          <feature>Before/after image pairs</feature>
+          <feature>Lightbox functionality</feature>
+          <feature>Filter by service type</feature>
+          <feature>Image optimization</feature>
+        </features>
+      </component>
+      
+      <component>
+        <name>TestimonialCard</name>
+        <file>components/TestimonialCard.tsx</file>
+        <features>
+          <feature>Customer photo</feature>
+          <feature>Star rating</feature>
+          <feature>Review text</feature>
+          <feature>Customer name</feature>
+          <feature>Vehicle type</feature>
+        </features>
+      </component>
+      
+      <component>
+        <name>ContactForm</name>
+        <file>components/ContactForm.tsx</file>
+        <features>
+          <feature>Name, email, phone fields</feature>
+          <feature>Service selection</feature>
+          <feature>Message area</feature>
+          <feature>Form validation</feature>
+          <feature>Submit handling</feature>
+        </features>
+      </component>
+      
+      <component>
+        <name>QuoteCalculator</name>
+        <file>components/QuoteCalculator.tsx</file>
+        <features>
+          <feature>Vehicle type selection</feature>
+          <feature>Window count</feature>
+          <feature>Tint type selection</feature>
+          <feature>Price calculation</feature>
+          <feature>Schedule appointment</feature>
+        </features>
+      </component>
+    </content-components>
+  </components>
+
+  <!-- Content Structure -->
+  <content>
+    <home-page>
+      <sections>
+        <section>
+          <name>Hero Section</name>
+          <content>
+            <headline>Professional Window Tinting Services</headline>
+            <subheadline>Transform your vehicle with premium tinting solutions</subheadline>
+            <cta-buttons>
+              <button>Get Free Quote</button>
+              <button>View Gallery</button>
+            </cta-buttons>
+            <trust-indicators>
+              <indicator>10+ Years Experience</indicator>
+              <indicator>1000+ Happy Customers</indicator>
+              <indicator>Lifetime Warranty</indicator>
+            </trust-indicators>
+          </content>
+        </section>
+        
+        <section>
+          <name>Services Overview</name>
+          <services>
+            <service>
+              <name>Automotive Tinting</name>
+              <description>Professional car, truck, and SUV window tinting</description>
+              <starting-price>$150</starting-price>
+            </service>
+            <service>
+              <name>Residential Tinting</name>
+              <description>Home window tinting for privacy and energy efficiency</description>
+              <starting-price>$200</starting-price>
+            </service>
+            <service>
+              <name>Commercial Tinting</name>
+              <description>Business and office window tinting solutions</description>
+              <starting-price>$300</starting-price>
+            </service>
+            <service>
+              <name>Security Film</name>
+              <description>Safety and security window film installation</description>
+              <starting-price>$400</starting-price>
+            </service>
+          </services>
+        </section>
+        
+        <section>
+          <name>Why Choose Us</name>
+          <benefits>
+            <benefit>
+              <title>Expert Installation</title>
+              <description>Certified technicians with years of experience</description>
+            </benefit>
+            <benefit>
+              <title>Premium Materials</title>
+              <description>High-quality films with lifetime warranty</description>
+            </benefit>
+            <benefit>
+              <title>Competitive Pricing</title>
+              <description>Fair, transparent pricing with no hidden fees</description>
+            </benefit>
+            <benefit>
+              <title>Customer Satisfaction</title>
+              <description>100% satisfaction guarantee on all work</description>
+            </benefit>
+          </benefits>
+        </section>
+        
+        <section>
+          <name>Recent Work</name>
+          <gallery-preview>
+            <images>6 featured before/after photos</images>
+            <cta>View Full Gallery</cta>
+          </gallery-preview>
+        </section>
+        
+        <section>
+          <name>Customer Reviews</name>
+          <testimonials>
+            <testimonial>
+              <rating>5 stars</rating>
+              <text>"Amazing work! My car looks incredible and the tint is perfect."</text>
+              <customer>John D.</customer>
+              <vehicle>2022 Toyota Camry</vehicle>
+            </testimonial>
+            <testimonial>
+              <rating>5 stars</rating>
+              <text>"Professional service and great results. Highly recommend!"</text>
+              <customer>Sarah M.</customer>
+              <vehicle>2021 Honda CR-V</vehicle>
+            </testimonial>
+          </testimonials>
+        </section>
+      </sections>
+    </home-page>
+    
+    <services-page>
+      <detailed-services>
+        <service>
+          <name>Automotive Window Tinting</name>
+          <description>Professional tinting for all vehicle types</description>
+          <features>
+            <feature>UV protection</feature>
+            <feature>Heat reduction</feature>
+            <feature>Privacy enhancement</feature>
+            <feature>Glare reduction</feature>
+          </features>
+          <pricing>
+            <package>
+              <name>Basic Package</name>
+              <price>$150</price>
+              <includes>2 front windows</includes>
+            </package>
+            <package>
+              <name>Standard Package</name>
+              <price>$250</price>
+              <includes>All side windows</includes>
+            </package>
+            <package>
+              <name>Premium Package</name>
+              <price>$350</price>
+              <includes>All windows + windshield strip</includes>
+            </package>
+          </pricing>
+        </service>
+        
+        <service>
+          <name>Residential Window Tinting</name>
+          <description>Home window solutions for comfort and privacy</description>
+          <features>
+            <feature>Energy efficiency</feature>
+            <feature>Privacy protection</feature>
+            <feature>Furniture protection</feature>
+            <feature>Custom designs available</feature>
+          </features>
+          <pricing>
+            <package>
+              <name>Single Room</name>
+              <price>$200</price>
+              <includes>Up to 3 windows</includes>
+            </package>
+            <package>
+              <name>Whole House</name>
+              <price>$800</price>
+              <includes>All windows</includes>
+            </package>
+          </pricing>
+        </service>
+      </detailed-services>
+    </services-page>
+    
+    <about-page>
+      <company-info>
+        <story>
+          <title>Our Story</title>
+          <content>Founded in 2014, we've been providing premium window tinting services to our community...</content>
+        </story>
+        <team>
+          <member>
+            <name>Owner Name</name>
+            <position>Owner/Lead Technician</position>
+            <experience>10+ years experience</experience>
+          </member>
+        </team>
+        <certifications>
+          <certification>3M Certified Installer</certification>
+          <certification>Llumar Certified</certification>
+          <certification>State Licensed</certification>
+        </certifications>
+      </company-info>
+    </about-page>
+    
+    <contact-page>
+      <contact-info>
+        <phone>(555) 123-4567</phone>
+        <email>info@jnwindowtint.com</email>
+        <address>
+          <street>123 Main Street</street>
+          <city>Your City</city>
+          <state>State</state>
+          <zip>12345</zip>
+        </address>
+        <hours>
+          <day>Monday-Friday: 8AM-6PM</day>
+          <day>Saturday: 9AM-4PM</day>
+          <day>Sunday: Closed</day>
+        </hours>
+      </contact-info>
+      <service-areas>
+        <area>City Name</area>
+        <area>Surrounding Towns</area>
+        <area>50-mile radius</area>
+      </service-areas>
+    </contact-page>
+  </content>
+
+  <!-- SEO and Metadata -->
+  <seo>
+    <meta-tags>
+      <title>JN Window Tint - Professional Window Tinting Services</title>
+      <description>Professional window tinting services for automotive, residential, and commercial applications. Quality work, competitive pricing, lifetime warranty.</description>
+      <keywords>window tinting, car tint, home tint, commercial tint, automotive tint, window film</keywords>
+    </meta-tags>
+    <social-media>
+      <og-title>JN Window Tint - Professional Tinting Services</og-title>
+      <og-description>Transform your vehicle or home with our premium window tinting services</og-description>
+      <og-image>/images/og-image.jpg</og-image>
+    </social-media>
+  </seo>
+
+  <!-- File Structure -->
+  <file-structure>
+    <directories>
+      <dir>app/</dir>
+      <dir>components/</dir>
+      <dir>public/</dir>
+      <dir>styles/</dir>
+      <dir>lib/</dir>
+      <dir>types/</dir>
+    </directories>
+    <public-assets>
+      <images>
+        <image>hero-bg.jpg</image>
+        <image>logo.png</image>
+        <image>gallery/</image>
+        <image>team/</image>
+      </images>
+      <icons>
+        <icon>favicon.ico</icon>
+        <icon>apple-touch-icon.png</icon>
+      </icons>
+    </public-assets>
+  </file-structure>
+
+  <!-- Performance Optimizations -->
+  <optimizations>
+    <image-optimization>Next.js Image component</image-optimization>
+    <code-splitting>Automatic with Next.js</code-splitting>
+    <static-generation>All pages pre-rendered</static-generation>
+    <caching>CDN caching enabled</caching>
+    <compression>Gzip compression</compression>
+  </optimizations>
+</website-structure> 
